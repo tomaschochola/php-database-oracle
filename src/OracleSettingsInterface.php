@@ -13,14 +13,14 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Pdo\Mysql;
+namespace TomasChochola\Pdo\Oracle;
 
 use NoDiscard;
 
 /**
  * @no-named-arguments
  */
-interface MysqlSettingsInterface
+interface OracleSettingsInterface
 {
     public string $dbname { get; }
 

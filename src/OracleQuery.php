@@ -13,13 +13,12 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Pdo\Mysql;
+namespace TomasChochola\Pdo\Oracle;
 
 use NoDiscard;
 use Override;
 use PDO;
 use PDOStatement;
-use Pdo\Mysql;
 use Stringable;
 use TomasChochola\Pdo\QueryInterface;
 use UnexpectedValueException;
@@ -33,19 +32,19 @@ use function is_string;
 /**
  * @no-named-arguments
  */
-readonly class MysqlQuery implements QueryInterface
+readonly class OracleQuery implements QueryInterface
 {
-    private readonly Mysql $mysql;
+    private readonly PDO $oracle;
 
-    public function __construct(Mysql $mysql)
+    public function __construct(PDO $oracle)
     {
-        $this->mysql = $mysql;
+        $this->oracle = $oracle;
     }
 
     #[Override]
     public function begin(): void
     {
-        $ok = $this->mysql->beginTransaction();
+        $ok = $this->oracle->beginTransaction();
 
         if ($ok !== true) {
             throw new UnexpectedValueException('beginTransaction');
@@ -59,7 +58,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function bool(Stringable|string $sql, array $params = []): bool
     {
-        $stm = $this->mysql->prepare((string) $sql);
+        $stm = $this->oracle->prepare((string) $sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -93,7 +92,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function commit(): void
     {
-        $ok = $this->mysql->commit();
+        $ok = $this->oracle->commit();
 
         if ($ok !== true) {
             throw new UnexpectedValueException('commit');
@@ -107,7 +106,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function execute(Stringable|string $sql, array $params = []): int
     {
-        $stm = $this->mysql->prepare((string) $sql);
+        $stm = $this->oracle->prepare((string) $sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -135,7 +134,7 @@ readonly class MysqlQuery implements QueryInterface
             throw new UnexpectedValueException('rowCount');
         }
 
-        $id = $this->mysql->lastInsertId();
+        $id = $this->oracle->lastInsertId();
 
         if (!is_string($id)) {
             throw new UnexpectedValueException('lastInsertId');
@@ -151,7 +150,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function int(Stringable|string $sql, array $params = []): int
     {
-        $stm = $this->mysql->prepare((string) $sql);
+        $stm = $this->oracle->prepare((string) $sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -175,11 +174,11 @@ readonly class MysqlQuery implements QueryInterface
             throw new UnexpectedValueException('fetch');
         }
 
-        if (is_int($int)) {
-            return $int;
+        if (!is_int($int)) {
+            throw new UnexpectedValueException('$int');
         }
 
-        throw new UnexpectedValueException('$int');
+        return $int;
     }
 
     /**
@@ -192,7 +191,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function object(string $sql, array $params = [], string $class = stdClass::class): object|null
     {
-        $stm = $this->mysql->prepare($sql);
+        $stm = $this->oracle->prepare($sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -217,7 +216,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function objects(string $sql, array $params = [], string $class = stdClass::class): iterable
     {
-        $stm = $this->mysql->prepare($sql);
+        $stm = $this->oracle->prepare($sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -235,7 +234,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function rollback(): void
     {
-        $ok = $this->mysql->rollBack();
+        $ok = $this->oracle->rollBack();
 
         if ($ok !== true) {
             throw new UnexpectedValueException('rollBack');
@@ -248,7 +247,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function run(Stringable|string $sql, array $params = []): void
     {
-        $stm = $this->mysql->prepare((string) $sql);
+        $stm = $this->oracle->prepare((string) $sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -268,7 +267,7 @@ readonly class MysqlQuery implements QueryInterface
     #[Override]
     public function string(Stringable|string $sql, array $params = []): string
     {
-        $stm = $this->mysql->prepare((string) $sql);
+        $stm = $this->oracle->prepare((string) $sql);
 
         if (!$stm instanceof PDOStatement) {
             throw new UnexpectedValueException('prepare');
@@ -292,11 +291,11 @@ readonly class MysqlQuery implements QueryInterface
             throw new UnexpectedValueException('fetch');
         }
 
-        if (is_string($string)) {
-            return $string;
+        if (!is_string($string)) {
+            throw new UnexpectedValueException('$string');
         }
 
-        throw new UnexpectedValueException('$string');
+        return $string;
     }
 
     /**

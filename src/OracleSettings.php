@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Pdo\Mysql;
+namespace TomasChochola\Pdo\Oracle;
 
 use NoDiscard;
 use Override;
@@ -21,7 +21,7 @@ use Override;
 /**
  * @no-named-arguments
  */
-readonly class MysqlSettings implements MysqlSettingsInterface
+readonly class OracleSettings implements OracleSettingsInterface
 {
     #[Override]
     public readonly string $dbname;

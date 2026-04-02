@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Pdo\Mysql;
+namespace TomasChochola\Pdo\Oracle;
 
 use InvalidArgumentException;
 use NoDiscard;
@@ -27,22 +27,22 @@ use function mb_trim;
 /**
  * @no-named-arguments
  */
-readonly class MysqlSettingsFactory
+readonly class OracleSettingsFactory
 {
     /**
      * @param array<mixed, mixed> $options
      */
     #[NoDiscard]
-    public function create(string $host, string $port, string $dbname, string $socket, string $username, string $password, array $options): MysqlSettings
+    public function create(string $host, string $port, string $dbname, string $socket, string $username, string $password, array $options): OracleSettings
     {
-        return new MysqlSettings($host, $port, $dbname, $socket, $username, $password, $options);
+        return new OracleSettings($host, $port, $dbname, $socket, $username, $password, $options);
     }
 
     /**
      * @param array<mixed, mixed> $settings
      */
     #[NoDiscard]
-    public function createFrom(array $settings): MysqlSettings
+    public function createFrom(array $settings): OracleSettings
     {
         if (!isset($settings['host']) || !is_string($settings['host'])) {
             throw new InvalidArgumentException('$settings');
