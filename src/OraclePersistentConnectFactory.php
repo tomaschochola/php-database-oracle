@@ -32,13 +32,7 @@ readonly class OraclePersistentConnectFactory
     #[NoDiscard]
     public function create(OracleSettingsInterface $settings): mixed
     {
-        $oracle = oci_pconnect(
-            $settings->username,
-            $settings->password,
-            $settings->connectionString,
-            $settings->encoding,
-            $settings->sessionMode,
-        );
+        $oracle = oci_pconnect($settings->username, $settings->password, $settings->connectionString, $settings->encoding, $settings->sessionMode);
 
         if (!is_resource($oracle)) {
             throw new UnexpectedValueException('oci_pconnect');

@@ -32,13 +32,7 @@ readonly class OracleNewConnectFactory
     #[NoDiscard]
     public function create(OracleSettingsInterface $settings): mixed
     {
-        $oracle = oci_new_connect(
-            $settings->username,
-            $settings->password,
-            $settings->connectionString,
-            $settings->encoding,
-            $settings->sessionMode,
-        );
+        $oracle = oci_new_connect($settings->username, $settings->password, $settings->connectionString, $settings->encoding, $settings->sessionMode);
 
         if (!is_resource($oracle)) {
             throw new UnexpectedValueException('oci_new_connect');

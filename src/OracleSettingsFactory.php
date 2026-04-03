@@ -63,12 +63,6 @@ readonly class OracleSettingsFactory
             throw new InvalidArgumentException('$settings');
         }
 
-        return $this->create(
-            $settings['username'],
-            $settings['password'],
-            $settings['connectionString'],
-            $settings['encoding'],
-            $settings['sessionMode'],
-        );
+        return $this->create($settings['username'], $settings['password'], $settings['connectionString'], $settings['encoding'], $settings['sessionMode']);
     }
 }
