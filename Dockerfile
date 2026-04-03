@@ -27,6 +27,7 @@ RUN <<EOF
   ln -sfn /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
   echo /opt/oracle/instantclient > /etc/ld.so.conf.d/oracle-instantclient.conf
   ldconfig
+  pecl channel-update pecl.php.net
   printf 'instantclient,/opt/oracle/instantclient\n' | pecl install oci8
   pecl install apcu redis
   docker-php-ext-enable oci8 apcu redis

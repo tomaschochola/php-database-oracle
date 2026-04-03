@@ -1,19 +1,8 @@
 <?php
 
-/**
- * @author Tomáš Chochola <tomaschochola@tomaschochola.cz>
- * @copyright © 2026 Tomáš Chochola <tomaschochola@tomaschochola.cz>
- *
- * @license CC-BY-ND-4.0
- *
- * @see {@link https://creativecommons.org/licenses/by-nd/4.0/} License
- * @see {@link https://github.com/tomaschochola} GitHub Profile
- * @see {@link https://github.com/sponsors/tomaschochola} GitHub Sponsors
- */
-
 declare(strict_types=1);
 
-namespace TomasChochola\Pdo\Oracle;
+namespace TomasChochola\Connection\Oci;
 
 use InvalidArgumentException;
 use NoDiscard;
@@ -22,22 +11,19 @@ use function array_key_exists;
 use function is_int;
 use function is_string;
 
-/**
- * @no-named-arguments
- */
-readonly class OracleSettingsFactory
+readonly class OciSettingsFactory
 {
     #[NoDiscard]
-    public function create(string $username, string $password, string|null $connectionString, string $encoding, int $sessionMode): OracleSettings
+    public function create(string $username, string $password, string|null $connectionString, string $encoding, int $sessionMode): OciSettings
     {
-        return new OracleSettings($username, $password, $connectionString, $encoding, $sessionMode);
+        return new OciSettings($username, $password, $connectionString, $encoding, $sessionMode);
     }
 
     /**
      * @param array<mixed, mixed> $settings
      */
     #[NoDiscard]
-    public function createFrom(array $settings): OracleSettings
+    public function createFrom(array $settings): OciSettings
     {
         if (!isset($settings['username']) || !is_string($settings['username'])) {
             throw new InvalidArgumentException('$settings');

@@ -9,7 +9,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "TomasChochola\\Pdo\\Oracle\\": "./src"
+      "TomasChochola\\Connection\\Oci\\": "./src"
     }
   },
   "autoload-dev": {
@@ -26,24 +26,24 @@
     "process-timeout": 0,
     "sort-packages": true
   },
-  "description": "tomaschochola/php-database-oracle",
+  "description": "tomaschochola/php-connection-oci",
   "funding": [
     {
       "type": "github",
       "url": "https://github.com/sponsors/tomaschochola"
     }
   ],
-  "homepage": "https://github.com/tomaschochola/php-database-oracle",
+  "homepage": "https://github.com/tomaschochola/php-connection-oci",
   "keywords": [
     "tomaschochola",
     "TomasChochola",
     "Tomas Chochola",
     "Tomáš Chochola",
-    "php-database-oracle"
+    "php-connection-oci"
   ],
   "license": "CC-BY-ND-4.0",
   "minimum-stability": "dev",
-  "name": "tomaschochola/php-database-oracle",
+  "name": "tomaschochola/php-connection-oci",
   "prefer-stable": true,
   "readme": "./README.md",
   "repositories": [
@@ -56,23 +56,11 @@
       "no-api": true,
       "type": "git",
       "url": "https://github.com/tomaschochola/tooling-php-cs-fixer.git"
-    },
-    {
-      "no-api": true,
-      "type": "git",
-      "url": "https://github.com/tomaschochola/php-migrations.git"
-    },
-    {
-      "no-api": true,
-      "type": "git",
-      "url": "https://github.com/tomaschochola/php-database.git"
     }
   ],
   "require": {
     "ext-oci8": "*",
-    "php": "^8.5.0",
-    "tomaschochola/php-migrations": "^1.0@dev",
-    "tomaschochola/php-database": "^1.0@dev"
+    "php": "^8.5.0"
   },
   "require-dev": {
     "ext-intl": "*",
@@ -85,10 +73,10 @@
     "tomaschochola/tooling-phpstan": "^1.0@dev"
   },
   "support": {
-    "docs": "https://github.com/tomaschochola/php-database-oracle",
+    "docs": "https://github.com/tomaschochola/php-connection-oci",
     "email": "tomaschochola@tomaschochola.cz",
-    "issues": "https://github.com/tomaschochola/php-database-oracle/issues",
-    "source": "https://github.com/tomaschochola/php-database-oracle.git"
+    "issues": "https://github.com/tomaschochola/php-connection-oci/issues",
+    "source": "https://github.com/tomaschochola/php-connection-oci.git"
   },
   "type": "library"
 }
