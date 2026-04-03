@@ -1,17 +1,25 @@
 <?php
 
+/**
+ * @author Tomáš Chochola <tomaschochola@tomaschochola.cz>
+ * @copyright © 2026 Tomáš Chochola <tomaschochola@tomaschochola.cz>
+ *
+ * @license CC-BY-ND-4.0
+ *
+ * @see {@link https://creativecommons.org/licenses/by-nd/4.0/} License
+ * @see {@link https://github.com/tomaschochola} GitHub Profile
+ * @see {@link https://github.com/sponsors/tomaschochola} GitHub Sponsors
+ */
+
 declare(strict_types=1);
 
 namespace TomasChochola\Connection\Oci;
 
-use InvalidArgumentException;
 use NoDiscard;
 use UnexpectedValueException;
 
 use function is_array;
 use function is_resource;
-use function is_string;
-use function oci_bind_array_by_name;
 use function oci_bind_by_name;
 use function oci_error;
 use function oci_execute;
@@ -19,6 +27,9 @@ use function oci_fetch_assoc;
 use function oci_free_statement;
 use function str_starts_with;
 
+/**
+ * @no-named-arguments
+ */
 final class OciStatement
 {
     /**
@@ -36,6 +47,13 @@ final class OciStatement
         }
 
         $this->statement = $statement;
+    }
+
+    public function __destruct()
+    {
+        if (is_resource($this->statement)) {
+            oci_free_statement($this->statement);
+        }
     }
 
     #[NoDiscard]
@@ -57,29 +75,14 @@ final class OciStatement
     public function bindParams(iterable $params): static
     {
         foreach ($params as $name => &$value) {
-            if (!is_string($name)) {
-                throw new InvalidArgumentException('$params');
-            }
+            $ok = oci_bind_by_name($this->statement, str_starts_with($name, ':') ? $name : ':' . $name, $value);
 
-            $this->bindParam($name, $value);
+            if ($ok !== true) {
+                throw OciException::error($this->statement);
+            }
         }
 
         unset($value);
-
-        return $this;
-    }
-
-    /**
-     * @param array<mixed, mixed> $values
-     */
-    #[NoDiscard]
-    public function bindArray(string $name, array &$values): static
-    {
-        $ok = oci_bind_array_by_name($this->statement, str_starts_with($name, ':') ? $name : ':' . $name, $values);
-
-        if ($ok !== true) {
-            throw OciException::error($this->statement);
-        }
 
         return $this;
     }
@@ -115,12 +118,5 @@ final class OciStatement
         }
 
         return null;
-    }
-
-    public function __destruct()
-    {
-        if (is_resource($this->statement)) {
-            oci_free_statement($this->statement);
-        }
     }
 }
