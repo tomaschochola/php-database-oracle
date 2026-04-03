@@ -13,26 +13,32 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oci;
+namespace TomasChochola\Connection\Oracle;
 
+use LogicException;
 use NoDiscard;
 use UnexpectedValueException;
 
+use function is_array;
 use function is_resource;
 use function oci_close;
+use function oci_error;
 use function oci_parse;
 
 /**
  * @no-named-arguments
  */
-readonly class OciConnection
+readonly class OracleConnection
 {
     /**
      * @var resource
      */
-    public readonly mixed $connection;
+    private readonly mixed $connection;
 
-    public readonly bool $free;
+    /**
+     * @var object{current: bool}
+     */
+    private readonly object $free;
 
     /**
      * @param resource $connection
@@ -44,25 +50,36 @@ readonly class OciConnection
         }
 
         $this->connection = $connection;
-        $this->free = $free;
+        $this->free = (object) ['current' => $free];
     }
 
     public function __destruct()
     {
-        if ($this->free && is_resource($this->connection)) {
+        if ($this->free->current && is_resource($this->connection)) {
             oci_close($this->connection);
         }
     }
 
+    public function free(bool $flag = true): void
+    {
+        $this->free->current = $flag;
+    }
+
     #[NoDiscard]
-    public function statement(string $sql): OciStatement
+    public function parse(string $sql): OracleStatement
     {
         $statement = oci_parse($this->connection, $sql);
 
         if (!is_resource($statement)) {
-            throw OciException::error($this->connection);
+            $error = oci_error($this->connection);
+
+            if (is_array($error)) {
+                throw new OracleException($error);
+            }
+
+            throw new LogicException('fatal');
         }
 
-        return new OciStatement($statement);
+        return new OracleStatement($statement);
     }
 }

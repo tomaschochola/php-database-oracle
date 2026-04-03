@@ -6,7 +6,7 @@
   },
   "bugs": {
     "email": "tomaschochola@tomaschochola.cz",
-    "url": "https://github.com/tomaschochola/php-connection-oci/issues"
+    "url": "https://github.com/tomaschochola/php-connection-oracle/issues"
   },
   "contributors": [
     {
@@ -15,7 +15,7 @@
       "url": "https://github.com/tomaschochola"
     }
   ],
-  "description": "@tomaschochola/php-connection-oci",
+  "description": "@tomaschochola/php-connection-oracle",
   "devDependencies": {
     "@tomaschochola/tooling-eslint": "github:tomaschochola/tooling-eslint#1.x",
     "@tomaschochola/tooling-prettier": "github:tomaschochola/tooling-prettier#1.x"
@@ -24,17 +24,17 @@
     "type": "github",
     "url": "https://github.com/sponsors/tomaschochola"
   },
-  "homepage": "https://github.com/tomaschochola/php-connection-oci",
+  "homepage": "https://github.com/tomaschochola/php-connection-oracle",
   "keywords": [
     "tomaschochola",
     "TomasChochola",
     "Tomas Chochola",
     "Tomáš Chochola",
-    "php-connection-oci"
+    "php-connection-oracle"
   ],
   "license": "CC-BY-ND-4.0",
-  "name": "@tomaschochola/php-connection-oci",
-  "repository": "github:tomaschochola/php-connection-oci",
+  "name": "@tomaschochola/php-connection-oracle",
+  "repository": "github:tomaschochola/php-connection-oracle",
   "sideEffects": false,
   "type": "module"
 }

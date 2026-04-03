@@ -13,8 +13,9 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oci;
+namespace TomasChochola\Connection\Oracle;
 
+use LogicException;
 use NoDiscard;
 use UnexpectedValueException;
 
@@ -27,76 +28,71 @@ use function oci_fetch_assoc;
 use function oci_free_statement;
 use function str_starts_with;
 
+use const OCI_COMMIT_ON_SUCCESS;
+
 /**
  * @no-named-arguments
  */
-final class OciStatement
+readonly class OracleStatement
 {
+    /**
+     * @var object{current: bool}
+     */
+    private readonly object $free;
+
     /**
      * @var resource
      */
-    public readonly mixed $statement;
+    private readonly mixed $statement;
 
     /**
      * @param resource $statement
      */
-    public function __construct(mixed $statement)
+    public function __construct(mixed $statement, bool $free = false)
     {
         if (!is_resource($statement)) {
             throw new UnexpectedValueException('$statement');
         }
 
         $this->statement = $statement;
+        $this->free = (object) ['current' => $free];
     }
 
     public function __destruct()
     {
-        if (is_resource($this->statement)) {
+        if ($this->free->current && is_resource($this->statement)) {
             oci_free_statement($this->statement);
         }
     }
 
-    #[NoDiscard]
-    public function bindParam(string $name, mixed &$value): static
+    public function bindByName(string $param, mixed &$var, int $max_length = -1, int $type = 0): void
     {
-        $ok = oci_bind_by_name($this->statement, str_starts_with($name, ':') ? $name : ':' . $name, $value);
+        $ok = oci_bind_by_name($this->statement, str_starts_with($param, ':') ? $param : ':' . $param, $var, $max_length, $type);
 
         if ($ok !== true) {
-            throw OciException::error($this->statement);
-        }
+            $error = oci_error($this->statement);
 
-        return $this;
-    }
-
-    /**
-     * @param iterable<string, mixed> $params
-     */
-    #[NoDiscard]
-    public function bindParams(iterable $params): static
-    {
-        foreach ($params as $name => &$value) {
-            $ok = oci_bind_by_name($this->statement, str_starts_with($name, ':') ? $name : ':' . $name, $value);
-
-            if ($ok !== true) {
-                throw OciException::error($this->statement);
+            if (is_array($error)) {
+                throw new OracleException($error);
             }
+
+            throw new LogicException('fatal');
         }
-
-        unset($value);
-
-        return $this;
     }
 
-    #[NoDiscard]
-    public function execute(): static
+    public function execute(int $mode = OCI_COMMIT_ON_SUCCESS): void
     {
-        $ok = oci_execute($this->statement);
+        $ok = oci_execute($this->statement, $mode);
 
         if ($ok !== true) {
-            throw OciException::error($this->statement);
-        }
+            $error = oci_error($this->statement);
 
-        return $this;
+            if (is_array($error)) {
+                throw new OracleException($error);
+            }
+
+            throw new LogicException('fatal');
+        }
     }
 
     /**
@@ -114,9 +110,14 @@ final class OciStatement
         $error = oci_error($this->statement);
 
         if (is_array($error)) {
-            throw new OciException($error);
+            throw new OracleException($error);
         }
 
         return null;
+    }
+
+    public function free(bool $flag = true): void
+    {
+        $this->free->current = $flag;
     }
 }

@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oci;
+namespace TomasChochola\Connection\Oracle;
 
 use NoDiscard;
 use Override;
@@ -21,7 +21,7 @@ use Override;
 /**
  * @no-named-arguments
  */
-readonly class OciSettings implements OciSettingsInterface
+readonly class OracleSettings implements OracleSettingsInterface
 {
     #[Override]
     public readonly string|null $connectionString;

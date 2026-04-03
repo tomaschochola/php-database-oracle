@@ -13,20 +13,17 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oci;
+namespace TomasChochola\Connection\Oracle;
 
 use RuntimeException;
-use UnexpectedValueException;
 
-use function is_array;
 use function is_int;
 use function is_string;
-use function oci_error;
 
 /**
  * @no-named-arguments
  */
-final class OciException extends RuntimeException
+class OracleException extends RuntimeException
 {
     /**
      * @var array<mixed, mixed>
@@ -42,20 +39,7 @@ final class OciException extends RuntimeException
         $code = $error['code'] ?? null;
 
         parent::__construct(is_string($message) ? $message : '', is_int($code) ? $code : 0);
+
         $this->error = $error;
-    }
-
-    /**
-     * @param resource|null $handle
-     */
-    public static function error(mixed $handle = null): self
-    {
-        $error = $handle === null ? oci_error() : oci_error($handle);
-
-        if (!is_array($error)) {
-            throw new UnexpectedValueException('oci_error');
-        }
-
-        return new self($error);
     }
 }

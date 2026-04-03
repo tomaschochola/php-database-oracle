@@ -9,7 +9,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "TomasChochola\\Connection\\Oci\\": "./src"
+      "TomasChochola\\Connection\\Oracle\\": "./src"
     }
   },
   "autoload-dev": {
@@ -26,24 +26,24 @@
     "process-timeout": 0,
     "sort-packages": true
   },
-  "description": "tomaschochola/php-connection-oci",
+  "description": "tomaschochola/php-connection-oracle",
   "funding": [
     {
       "type": "github",
       "url": "https://github.com/sponsors/tomaschochola"
     }
   ],
-  "homepage": "https://github.com/tomaschochola/php-connection-oci",
+  "homepage": "https://github.com/tomaschochola/php-connection-oracle",
   "keywords": [
     "tomaschochola",
     "TomasChochola",
     "Tomas Chochola",
     "Tomáš Chochola",
-    "php-connection-oci"
+    "php-connection-oracle"
   ],
   "license": "CC-BY-ND-4.0",
   "minimum-stability": "dev",
-  "name": "tomaschochola/php-connection-oci",
+  "name": "tomaschochola/php-connection-oracle",
   "prefer-stable": true,
   "readme": "./README.md",
   "repositories": [
@@ -73,10 +73,10 @@
     "tomaschochola/tooling-phpstan": "^1.0@dev"
   },
   "support": {
-    "docs": "https://github.com/tomaschochola/php-connection-oci",
+    "docs": "https://github.com/tomaschochola/php-connection-oracle",
     "email": "tomaschochola@tomaschochola.cz",
-    "issues": "https://github.com/tomaschochola/php-connection-oci/issues",
-    "source": "https://github.com/tomaschochola/php-connection-oci.git"
+    "issues": "https://github.com/tomaschochola/php-connection-oracle/issues",
+    "source": "https://github.com/tomaschochola/php-connection-oracle.git"
   },
   "type": "library"
 }

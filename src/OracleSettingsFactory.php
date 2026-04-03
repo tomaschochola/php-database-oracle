@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oci;
+namespace TomasChochola\Connection\Oracle;
 
 use InvalidArgumentException;
 use NoDiscard;
@@ -25,19 +25,19 @@ use function is_string;
 /**
  * @no-named-arguments
  */
-readonly class OciSettingsFactory
+readonly class OracleSettingsFactory
 {
     #[NoDiscard]
-    public function create(string $username, string $password, string|null $connectionString, string $encoding, int $sessionMode): OciSettings
+    public function create(string $username, string $password, string|null $connectionString, string $encoding, int $sessionMode): OracleSettings
     {
-        return new OciSettings($username, $password, $connectionString, $encoding, $sessionMode);
+        return new OracleSettings($username, $password, $connectionString, $encoding, $sessionMode);
     }
 
     /**
      * @param array<mixed, mixed> $settings
      */
     #[NoDiscard]
-    public function createFrom(array $settings): OciSettings
+    public function createFrom(array $settings): OracleSettings
     {
         if (!isset($settings['username']) || !is_string($settings['username'])) {
             throw new InvalidArgumentException('$settings');

@@ -13,14 +13,14 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oci;
+namespace TomasChochola\Connection\Oracle;
 
 use NoDiscard;
 
 /**
  * @no-named-arguments
  */
-interface OciSettingsInterface
+interface OracleSettingsInterface
 {
     public string|null $connectionString { get; }
 
