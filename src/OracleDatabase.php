@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oracle;
+namespace TomasChochola\Oracle\Database;
 
 use LogicException;
 use NoDiscard;
@@ -30,10 +30,20 @@ use const OCI_DEFAULT;
 /**
  * @no-named-arguments
  */
-class OracleDatabase
+readonly class OracleDatabase
 {
+    private readonly OracleSettingsInterface $settings;
+
+    public function __construct(OracleSettingsInterface $settings)
+    {
+        $this->settings = $settings;
+    }
+
+    /**
+     * @return resource
+     */
     #[NoDiscard]
-    public function connect(string $username, string $password, string|null $connection_string = null, string $encoding = '', int $session_mode = OCI_DEFAULT): OracleConnection
+    public static function oci_connect(string $username, string $password, string|null $connection_string = null, string $encoding = '', int $session_mode = OCI_DEFAULT): mixed
     {
         $oracle = oci_connect($username, $password, $connection_string, $encoding, $session_mode);
 
@@ -47,11 +57,14 @@ class OracleDatabase
             throw new LogicException('fatal');
         }
 
-        return new OracleConnection($oracle);
+        return $oracle;
     }
 
+    /**
+     * @return resource
+     */
     #[NoDiscard]
-    public function newConnect(string $username, string $password, string|null $connection_string = null, string $encoding = '', int $session_mode = OCI_DEFAULT): OracleConnection
+    public static function oci_new_connect(string $username, string $password, string|null $connection_string = null, string $encoding = '', int $session_mode = OCI_DEFAULT): mixed
     {
         $oracle = oci_new_connect($username, $password, $connection_string, $encoding, $session_mode);
 
@@ -65,11 +78,14 @@ class OracleDatabase
             throw new LogicException('fatal');
         }
 
-        return new OracleConnection($oracle);
+        return $oracle;
     }
 
+    /**
+     * @return resource
+     */
     #[NoDiscard]
-    public function pconnect(string $username, string $password, string|null $connection_string = null, string $encoding = '', int $session_mode = OCI_DEFAULT): OracleConnection
+    public static function oci_pconnect(string $username, string $password, string|null $connection_string = null, string $encoding = '', int $session_mode = OCI_DEFAULT): mixed
     {
         $oracle = oci_pconnect($username, $password, $connection_string, $encoding, $session_mode);
 
@@ -83,6 +99,24 @@ class OracleDatabase
             throw new LogicException('fatal');
         }
 
-        return new OracleConnection($oracle);
+        return $oracle;
+    }
+
+    #[NoDiscard]
+    public function connect(): OracleConnection
+    {
+        return new OracleConnection(self::oci_connect($this->settings->username, $this->settings->password, $this->settings->connectionString, $this->settings->encoding, $this->settings->sessionMode));
+    }
+
+    #[NoDiscard]
+    public function connectNew(): OracleConnection
+    {
+        return new OracleConnection(self::oci_new_connect($this->settings->username, $this->settings->password, $this->settings->connectionString, $this->settings->encoding, $this->settings->sessionMode));
+    }
+
+    #[NoDiscard]
+    public function connectPersistent(): OracleConnection
+    {
+        return new OracleConnection(self::oci_pconnect($this->settings->username, $this->settings->password, $this->settings->connectionString, $this->settings->encoding, $this->settings->sessionMode));
     }
 }

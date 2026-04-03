@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oracle;
+namespace TomasChochola\Oracle\Database;
 
 use NoDiscard;
 use Override;

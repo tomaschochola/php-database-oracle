@@ -13,11 +13,10 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oracle;
+namespace TomasChochola\Oracle\Database;
 
 use LogicException;
 use NoDiscard;
-use UnexpectedValueException;
 
 use function is_array;
 use function is_resource;
@@ -50,10 +49,6 @@ readonly class OracleStatement
      */
     public function __construct(mixed $statement, bool $free = false)
     {
-        if (!is_resource($statement)) {
-            throw new UnexpectedValueException('$statement');
-        }
-
         $this->statement = $statement;
         $this->free = (object) ['current' => $free];
     }
@@ -65,27 +60,15 @@ readonly class OracleStatement
         }
     }
 
-    public function bindByName(string $param, mixed &$var, int $max_length = -1, int $type = 0): void
+    /**
+     * @param resource $statement
+     */
+    public static function oci_bind_by_name(mixed $statement, string $param, mixed &$var, int $max_length = -1, int $type = 0): void
     {
-        $ok = oci_bind_by_name($this->statement, str_starts_with($param, ':') ? $param : ':' . $param, $var, $max_length, $type);
+        $ok = oci_bind_by_name($statement, str_starts_with($param, ':') ? $param : ':' . $param, $var, $max_length, $type);
 
         if ($ok !== true) {
-            $error = oci_error($this->statement);
-
-            if (is_array($error)) {
-                throw new OracleException($error);
-            }
-
-            throw new LogicException('fatal');
-        }
-    }
-
-    public function execute(int $mode = OCI_COMMIT_ON_SUCCESS): void
-    {
-        $ok = oci_execute($this->statement, $mode);
-
-        if ($ok !== true) {
-            $error = oci_error($this->statement);
+            $error = oci_error($statement);
 
             if (is_array($error)) {
                 throw new OracleException($error);
@@ -96,24 +79,63 @@ readonly class OracleStatement
     }
 
     /**
+     * @param resource $statement
+     */
+    public static function oci_execute(mixed $statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
+    {
+        $ok = oci_execute($statement, $mode);
+
+        if ($ok !== true) {
+            $error = oci_error($statement);
+
+            if (is_array($error)) {
+                throw new OracleException($error);
+            }
+
+            throw new LogicException('fatal');
+        }
+    }
+
+    /**
+     * @param resource $statement
+     *
      * @return array<mixed, mixed>|null
      */
     #[NoDiscard]
-    public function fetchAssoc(): array|null
+    public static function oci_fetch_assoc(mixed $statement): array|null
     {
-        $row = oci_fetch_assoc($this->statement);
+        $row = oci_fetch_assoc($statement);
 
         if (is_array($row)) {
             return $row;
         }
 
-        $error = oci_error($this->statement);
+        $error = oci_error($statement);
 
         if (is_array($error)) {
             throw new OracleException($error);
         }
 
         return null;
+    }
+
+    public function bindByName(string $param, mixed &$var, int $max_length = -1, int $type = 0): void
+    {
+        self::oci_bind_by_name($this->statement, $param, $var, $max_length, $type);
+    }
+
+    public function execute(int $mode = OCI_COMMIT_ON_SUCCESS): void
+    {
+        self::oci_execute($this->statement, $mode);
+    }
+
+    /**
+     * @return array<mixed, mixed>|null
+     */
+    #[NoDiscard]
+    public function fetchAssoc(): array|null
+    {
+        return self::oci_fetch_assoc($this->statement);
     }
 
     public function free(bool $flag = true): void

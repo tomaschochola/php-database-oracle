@@ -13,11 +13,10 @@
 
 declare(strict_types=1);
 
-namespace TomasChochola\Connection\Oracle;
+namespace TomasChochola\Oracle\Database;
 
 use LogicException;
 use NoDiscard;
-use UnexpectedValueException;
 
 use function is_array;
 use function is_resource;
@@ -45,10 +44,6 @@ readonly class OracleConnection
      */
     public function __construct(mixed $connection, bool $free = false)
     {
-        if (!is_resource($connection)) {
-            throw new UnexpectedValueException('$connection');
-        }
-
         $this->connection = $connection;
         $this->free = (object) ['current' => $free];
     }
@@ -60,18 +55,18 @@ readonly class OracleConnection
         }
     }
 
-    public function free(bool $flag = true): void
-    {
-        $this->free->current = $flag;
-    }
-
+    /**
+     * @param resource $connection
+     *
+     * @return resource
+     */
     #[NoDiscard]
-    public function parse(string $sql): OracleStatement
+    public static function oci_parse(mixed $connection, string $sql): mixed
     {
-        $statement = oci_parse($this->connection, $sql);
+        $parsed = oci_parse($connection, $sql);
 
-        if (!is_resource($statement)) {
-            $error = oci_error($this->connection);
+        if (!is_resource($parsed)) {
+            $error = oci_error($connection);
 
             if (is_array($error)) {
                 throw new OracleException($error);
@@ -80,6 +75,17 @@ readonly class OracleConnection
             throw new LogicException('fatal');
         }
 
-        return new OracleStatement($statement);
+        return $parsed;
+    }
+
+    public function free(bool $flag = true): void
+    {
+        $this->free->current = $flag;
+    }
+
+    #[NoDiscard]
+    public function parse(string $sql): OracleStatement
+    {
+        return new OracleStatement(self::oci_parse($this->connection, $sql));
     }
 }
