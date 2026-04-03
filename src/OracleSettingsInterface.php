@@ -22,20 +22,13 @@ use NoDiscard;
  */
 interface OracleSettingsInterface
 {
-    public string $dbname { get; }
+    public string|null $connectionString { get; }
 
-    public string $host { get; }
-
-    /**
-     * @var array<mixed, mixed>
-     */
-    public array $options { get; }
+    public string $encoding { get; }
 
     public string $password { get; }
 
-    public string $port { get; }
-
-    public string $socket { get; }
+    public int $sessionMode { get; }
 
     public string $username { get; }
 

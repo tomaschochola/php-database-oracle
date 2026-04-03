@@ -24,38 +24,27 @@ use Override;
 readonly class OracleSettings implements OracleSettingsInterface
 {
     #[Override]
-    public readonly string $dbname;
+    public readonly string|null $connectionString;
 
     #[Override]
-    public readonly string $host;
-
-    #[Override]
-    public readonly array $options;
+    public readonly string $encoding;
 
     #[Override]
     public readonly string $password;
 
     #[Override]
-    public readonly string $port;
-
-    #[Override]
-    public readonly string $socket;
+    public readonly int $sessionMode;
 
     #[Override]
     public readonly string $username;
 
-    /**
-     * @param array<mixed, mixed> $options
-     */
-    public function __construct(string $host, string $port, string $dbname, string $socket, string $username, string $password, array $options)
+    public function __construct(string $username, string $password, string|null $connectionString, string $encoding, int $sessionMode)
     {
-        $this->host = $host;
-        $this->port = $port;
-        $this->dbname = $dbname;
-        $this->socket = $socket;
         $this->username = $username;
         $this->password = $password;
-        $this->options = $options;
+        $this->connectionString = $connectionString;
+        $this->encoding = $encoding;
+        $this->sessionMode = $sessionMode;
     }
 
     #[NoDiscard]

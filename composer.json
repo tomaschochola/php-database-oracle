@@ -69,9 +69,7 @@
     }
   ],
   "require": {
-    "ext-mbstring": "*",
-    "ext-pdo": "*",
-    "ext-pdo_oci": "*",
+    "ext-oci8": "*",
     "php": "^8.5.0",
     "tomaschochola/php-migrations": "^1.0@dev",
     "tomaschochola/php-database": "^1.0@dev"
