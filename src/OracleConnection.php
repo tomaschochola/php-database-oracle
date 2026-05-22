@@ -32,12 +32,12 @@ readonly class OracleConnection
     /**
      * @var resource
      */
-    private readonly mixed $connection;
+    private mixed $connection;
 
     /**
      * @var object{current: bool}
      */
-    private readonly object $free;
+    private object $free;
 
     /**
      * @param resource $connection
@@ -60,7 +60,7 @@ readonly class OracleConnection
      *
      * @return resource
      */
-    #[NoDiscard]
+    #[NoDiscard()]
     public static function oci_parse(mixed $connection, string $sql): mixed
     {
         $parsed = oci_parse($connection, $sql);
@@ -83,7 +83,7 @@ readonly class OracleConnection
         $this->free->current = $flag;
     }
 
-    #[NoDiscard]
+    #[NoDiscard()]
     public function parse(string $sql): OracleStatement
     {
         return new OracleStatement(self::oci_parse($this->connection, $sql));

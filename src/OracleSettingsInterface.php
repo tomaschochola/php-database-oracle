@@ -22,7 +22,7 @@ use NoDiscard;
  */
 interface OracleSettingsInterface
 {
-    public string|null $connectionString { get; }
+    public string | null $connectionString { get; }
 
     public string $encoding { get; }
 
@@ -35,6 +35,6 @@ interface OracleSettingsInterface
     /**
      * @param array<mixed, mixed> $with
      */
-    #[NoDiscard]
+    #[NoDiscard()]
     public function clone(array $with): static;
 }

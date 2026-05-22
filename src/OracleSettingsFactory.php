@@ -27,8 +27,8 @@ use function is_string;
  */
 readonly class OracleSettingsFactory
 {
-    #[NoDiscard]
-    public function create(string $username, string $password, string|null $connectionString, string $encoding, int $sessionMode): OracleSettings
+    #[NoDiscard()]
+    public function create(string $username, string $password, string | null $connectionString, string $encoding, int $sessionMode): OracleSettings
     {
         return new OracleSettings($username, $password, $connectionString, $encoding, $sessionMode);
     }
@@ -36,7 +36,7 @@ readonly class OracleSettingsFactory
     /**
      * @param array<mixed, mixed> $settings
      */
-    #[NoDiscard]
+    #[NoDiscard()]
     public function createFrom(array $settings): OracleSettings
     {
         if (!isset($settings['username']) || !is_string($settings['username'])) {

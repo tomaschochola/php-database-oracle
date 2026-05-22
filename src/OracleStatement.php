@@ -37,12 +37,12 @@ readonly class OracleStatement
     /**
      * @var object{current: bool}
      */
-    private readonly object $free;
+    private object $free;
 
     /**
      * @var resource
      */
-    private readonly mixed $statement;
+    private mixed $statement;
 
     /**
      * @param resource $statement
@@ -101,8 +101,8 @@ readonly class OracleStatement
      *
      * @return array<mixed, mixed>|null
      */
-    #[NoDiscard]
-    public static function oci_fetch_assoc(mixed $statement): array|null
+    #[NoDiscard()]
+    public static function oci_fetch_assoc(mixed $statement): array | null
     {
         $row = oci_fetch_assoc($statement);
 
@@ -132,8 +132,8 @@ readonly class OracleStatement
     /**
      * @return array<mixed, mixed>|null
      */
-    #[NoDiscard]
-    public function fetchAssoc(): array|null
+    #[NoDiscard()]
+    public function fetchAssoc(): array | null
     {
         return self::oci_fetch_assoc($this->statement);
     }
