@@ -1,3 +1,4 @@
+name: 'php-oracle-database-devcontainer'
 networks:
   devcontainer:
     internal: false
