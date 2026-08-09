@@ -6,7 +6,7 @@
   },
   "bugs": {
     "email": "tomaschochola@tomaschochola.cz",
-    "url": "https://github.com/tomaschochola/php-oracle-database/issues"
+    "url": "https://github.com/tomaschochola/php-database-oracle/issues"
   },
   "contributors": [
     {
@@ -25,7 +25,7 @@
     "type": "github",
     "url": "https://github.com/sponsors/tomaschochola"
   },
-  "homepage": "https://github.com/tomaschochola/php-oracle-database",
+  "homepage": "https://github.com/tomaschochola/php-database-oracle",
   "keywords": [
     "tomaschochola",
     "TomasChochola",
@@ -37,11 +37,11 @@
     "sql"
   ],
   "license": "CC-BY-ND-4.0",
-  "name": "@tomaschochola/php-oracle-database",
+  "name": "@tomaschochola/php-database-oracle",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomaschochola/php-oracle-database.git"
+    "url": "git+https://github.com/tomaschochola/php-database-oracle.git"
   },
   "type": "module",
   "version": "0.0.0"

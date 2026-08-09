@@ -20,9 +20,9 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Attributes\Test;
-use TomasChochola\Oracle\Database\OracleException;
-use TomasChochola\Oracle\Database\OracleSettings;
-use TomasChochola\Oracle\Database\OracleSettingsFactory;
+use TomasChochola\Database\Oracle\OracleException;
+use TomasChochola\Database\Oracle\OracleSettings;
+use TomasChochola\Database\Oracle\OracleSettingsFactory;
 
 use function array_diff_key;
 use function array_replace;

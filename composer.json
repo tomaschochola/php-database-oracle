@@ -9,7 +9,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "TomasChochola\\Oracle\\Database\\": "src/"
+      "TomasChochola\\Database\\Oracle\\": "src/"
     }
   },
   "autoload-dev": {
@@ -43,7 +43,7 @@
       "url": "https://github.com/sponsors/tomaschochola"
     }
   ],
-  "homepage": "https://github.com/tomaschochola/php-oracle-database",
+  "homepage": "https://github.com/tomaschochola/php-database-oracle",
   "keywords": [
     "tomaschochola",
     "TomasChochola",
@@ -55,7 +55,7 @@
     "sql"
   ],
   "license": "CC-BY-ND-4.0",
-  "name": "tomaschochola/php-oracle-database",
+  "name": "tomaschochola/php-database-oracle",
   "prefer-stable": true,
   "repositories": [
     {
@@ -85,8 +85,8 @@
   },
   "support": {
     "email": "tomaschochola@tomaschochola.cz",
-    "issues": "https://github.com/tomaschochola/php-oracle-database/issues",
-    "source": "https://github.com/tomaschochola/php-oracle-database.git"
+    "issues": "https://github.com/tomaschochola/php-database-oracle/issues",
+    "source": "https://github.com/tomaschochola/php-database-oracle.git"
   },
   "type": "library"
 }
