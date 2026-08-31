@@ -1,92 +1,92 @@
 {
-  "authors": [
-    {
-      "email": "tomaschochola@tomaschochola.cz",
-      "homepage": "https://github.com/tomaschochola",
-      "name": "Tomáš Chochola",
-      "role": "Author"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "TomasChochola\\Database\\Oracle\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
-  "config": {
-    "allow-plugins": false,
-    "platform-check": true,
-    "policy": {
-      "abandoned": {
-        "audit": "fail",
-        "block": true
-      },
-      "advisories": {
-        "audit": "fail",
-        "block": true
-      },
-      "malware": {
-        "audit": "fail",
-        "block": true
-      }
+    "authors": [
+        {
+            "email": "tomaschochola@tomaschochola.cz",
+            "homepage": "https://github.com/tomaschochola",
+            "name": "Tomáš Chochola",
+            "role": "Author"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TomasChochola\\Database\\Oracle\\": "src/"
+        }
     },
-    "sort-packages": true
-  },
-  "description": "Typed Oracle Database connection, statement, settings, and exception primitives.",
-  "funding": [
-    {
-      "type": "github",
-      "url": "https://github.com/sponsors/tomaschochola"
-    }
-  ],
-  "homepage": "https://github.com/tomaschochola/php-database-oracle",
-  "keywords": [
-    "tomaschochola",
-    "TomasChochola",
-    "Tomas Chochola",
-    "Tomáš Chochola",
-    "database",
-    "oci8",
-    "oracle",
-    "sql"
-  ],
-  "license": "CC-BY-ND-4.0",
-  "name": "tomaschochola/php-database-oracle",
-  "prefer-stable": true,
-  "repositories": [
-    {
-      "no-api": true,
-      "type": "vcs",
-      "url": "https://github.com/tomaschochola/tooling-php-cs-fixer.git"
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
-    {
-      "no-api": true,
-      "type": "vcs",
-      "url": "https://github.com/tomaschochola/tooling-phpstan.git"
-    }
-  ],
-  "require": {
-    "ext-oci8": "*",
-    "php": "^8.5.0"
-  },
-  "require-dev": {
-    "ext-intl": "*",
-    "ext-pcntl": "*",
-    "ext-xdebug": "*",
-    "ext-zip": "*",
-    "phpunit/phpunit": "^13.0",
-    "roave/security-advisories": "dev-latest",
-    "tomaschochola/tooling-php-cs-fixer": "dev-main",
-    "tomaschochola/tooling-phpstan": "dev-main"
-  },
-  "support": {
-    "email": "tomaschochola@tomaschochola.cz",
-    "issues": "https://github.com/tomaschochola/php-database-oracle/issues",
-    "source": "https://github.com/tomaschochola/php-database-oracle.git"
-  },
-  "type": "library"
+    "config": {
+        "allow-plugins": false,
+        "platform-check": true,
+        "policy": {
+            "abandoned": {
+                "audit": "fail",
+                "block": true
+            },
+            "advisories": {
+                "audit": "fail",
+                "block": true
+            },
+            "malware": {
+                "audit": "fail",
+                "block": true
+            }
+        },
+        "sort-packages": true
+    },
+    "description": "Typed Oracle Database connection, statement, settings, and exception primitives.",
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/tomaschochola"
+        }
+    ],
+    "homepage": "https://github.com/tomaschochola/php-database-oracle",
+    "keywords": [
+        "tomaschochola",
+        "TomasChochola",
+        "Tomas Chochola",
+        "Tomáš Chochola",
+        "database",
+        "oci8",
+        "oracle",
+        "sql"
+    ],
+    "license": "CC-BY-ND-4.0",
+    "name": "tomaschochola/php-database-oracle",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "no-api": true,
+            "type": "vcs",
+            "url": "https://github.com/tomaschochola/tooling-php-cs-fixer.git"
+        },
+        {
+            "no-api": true,
+            "type": "vcs",
+            "url": "https://github.com/tomaschochola/tooling-phpstan.git"
+        }
+    ],
+    "require": {
+        "ext-oci8": "*",
+        "php": "^8.5.0"
+    },
+    "require-dev": {
+        "ext-intl": "*",
+        "ext-pcntl": "*",
+        "ext-xdebug": "*",
+        "ext-zip": "*",
+        "phpunit/phpunit": "^13.0",
+        "roave/security-advisories": "dev-latest",
+        "tomaschochola/tooling-php-cs-fixer": "dev-main",
+        "tomaschochola/tooling-phpstan": "dev-main"
+    },
+    "support": {
+        "email": "tomaschochola@tomaschochola.cz",
+        "issues": "https://github.com/tomaschochola/php-database-oracle/issues",
+        "source": "https://github.com/tomaschochola/php-database-oracle.git"
+    },
+    "type": "library"
 }

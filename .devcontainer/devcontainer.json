@@ -1,22 +1,22 @@
 {
-  "appPort": ["62050:62050", "127.0.0.1:62051-62052:62051-62052", "62053:62053", "127.0.0.1:62054-62059:62054-62059"],
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": ["EditorConfig.EditorConfig", "DEVSENSE.phptools-vscode"],
-      "settings": {
-        "files.insertFinalNewline": true,
-        "files.trimFinalNewlines": true,
-        "files.trimTrailingWhitespace": true
-      }
-    }
-  },
-  "init": true,
-  "postCreateCommand": ["make", "postcreate"],
-  "remoteUser": "devcontainer",
-  "updateRemoteUserUID": true,
-  "waitFor": "postCreateCommand",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+    "appPort": ["62050:62050", "127.0.0.1:62051-62052:62051-62052", "62053:62053", "127.0.0.1:62054-62059:62054-62059"],
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": ["EditorConfig.EditorConfig", "DEVSENSE.phptools-vscode"],
+            "settings": {
+                "files.insertFinalNewline": true,
+                "files.trimFinalNewlines": true,
+                "files.trimTrailingWhitespace": true
+            }
+        }
+    },
+    "init": true,
+    "postCreateCommand": ["make", "postcreate"],
+    "remoteUser": "devcontainer",
+    "updateRemoteUserUID": true,
+    "waitFor": "postCreateCommand",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
