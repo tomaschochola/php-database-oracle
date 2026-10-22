@@ -49,10 +49,7 @@
         "TomasChochola",
         "Tomas Chochola",
         "Tomáš Chochola",
-        "database",
-        "oci8",
-        "oracle",
-        "sql"
+        "php-database-oracle"
     ],
     "license": "CC-BY-ND-4.0",
     "name": "tomaschochola/php-database-oracle",
